@@ -11,10 +11,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
     id 'jacoco'
-<<<<<<< Updated upstream
-    
-=======
->>>>>>> Stashed changes
+
 }
 
 repositories {
@@ -23,14 +20,14 @@ repositories {
 }
 
 dependencies {
-<<<<<<< Updated upstream
+
     //Mockito Framework
     testImplementation 'org.mockito:mockito-core:3.+'
-=======
+
     implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     implementation 'org.projectlombok:lombok:1.18.20'
 
->>>>>>> Stashed changes
+
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
 
@@ -80,47 +77,6 @@ jacoco {
     reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
     applyTo run
 }
-test {
-    finalizedBy jacocoTestReport
-}
-
-jacocoTestReport {
-    dependsOn test
-}
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = 0.5
-            }
-        }
-
-        rule {
-            enabled = false
-            element = 'CLASS'
-            includes = ['org.gradle.*']
-
-            limit {
-                counter = 'LINE'
-                value = 'TOTALCOUNT'
-                maximum = 0.3
-            }
-        }
-    }
-}
-
-<<<<<<< Updated upstream
-tasks.register('applicationCodeCoverageReport', JacocoReport){
-    executionData run
-    sourceSets sourceSets.main
-}
-=======
-jacoco {
-    toolVersion = "0.8.7"
-    reportsDirectory = file("${buildDir}/jacoco")
-    applyTo run
-}
 
 jacocoTestReport {
     dependsOn test
@@ -144,11 +100,9 @@ jacocoTestCoverageVerification {
 }
 test {
     finalizedBy jacocoTestReport
-    useJUnitPlatform()
-
 }
 
 //Run coverage verification during the build
 jacocoTestCoverageVerification.dependsOn jacocoTestReport
 check.dependsOn jacocoTestCoverageVerification
->>>>>>> Stashed changes
+
