@@ -11,23 +11,32 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
     id 'jacoco'
+<<<<<<< Updated upstream
     
+=======
+>>>>>>> Stashed changes
 }
 
 repositories {
     // Use JCenter for resolving dependencies.
-    jcenter()
     mavenCentral()
 }
 
 dependencies {
+<<<<<<< Updated upstream
     //Mockito Framework
     testImplementation 'org.mockito:mockito-core:3.+'
+=======
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    implementation 'org.projectlombok:lombok:1.18.20'
+
+>>>>>>> Stashed changes
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
 
     // Use JUnit Jupiter Engine for testing.
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testRuntimeOnly "org.junit.platform:junit-platform-runner:1.5.2"
 
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.5.2'
@@ -43,6 +52,12 @@ dependencies {
     implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.1.0'
     implementation 'org.kordamp.ikonli:ikonli-materialdesign2-pack:12.1.0'
     implementation 'org.kordamp.ikonli:ikonli-material2-pack:12.1.0'
+
+    // TestFX for UI testing.
+    testImplementation "org.testfx:testfx-core:4.0.16-alpha"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    testImplementation "org.testfx:testfx-junit5:4.0.16-alpha"
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 }
 
 application {
@@ -95,7 +110,45 @@ jacocoTestCoverageVerification {
     }
 }
 
+<<<<<<< Updated upstream
 tasks.register('applicationCodeCoverageReport', JacocoReport){
     executionData run
     sourceSets sourceSets.main
 }
+=======
+jacoco {
+    toolVersion = "0.8.7"
+    reportsDirectory = file("${buildDir}/jacoco")
+    applyTo run
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir("${buildDir}/jacocoHtml")
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = "LINE"
+                value = "COVEREDRATIO"
+                minimum = 0.85
+            }
+        }
+    }
+}
+test {
+    finalizedBy jacocoTestReport
+    useJUnitPlatform()
+
+}
+
+//Run coverage verification during the build
+jacocoTestCoverageVerification.dependsOn jacocoTestReport
+check.dependsOn jacocoTestCoverageVerification
+>>>>>>> Stashed changes
