@@ -24,7 +24,7 @@ dependencies {
     //Mockito Framework
     testImplementation 'org.mockito:mockito-core:3.+'
 
-    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.2'
     implementation 'org.projectlombok:lombok:1.18.20'
 
 
@@ -34,12 +34,8 @@ dependencies {
     // Use JUnit Jupiter Engine for testing.
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     testRuntimeOnly "org.junit.platform:junit-platform-runner:1.5.2"
-
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
     testRuntimeOnly 'org.junit.platform:junit-platform-runner:1.5.2'
-
-    // TestFX for UI testing.
-    //testCompile 'org.testfx:testfx-core:4.0.16-alpha'
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:29.0-jre'
@@ -51,10 +47,11 @@ dependencies {
     implementation 'org.kordamp.ikonli:ikonli-material2-pack:12.1.0'
 
     // TestFX for UI testing.
-    testImplementation "org.testfx:testfx-core:4.0.16-alpha"
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
-    testImplementation "org.testfx:testfx-junit5:4.0.16-alpha"
-    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+    // testCompile 'org.testfx:testfx-core:4.0.16-alpha'
+    // testImplementation "org.testfx:testfx-core:4.0.16-alpha"
+    // testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    // testImplementation "org.testfx:testfx-junit5:4.0.16-alpha"
+    // testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 }
 
 application {
@@ -74,16 +71,17 @@ javafx {
 
 jacoco {
     toolVersion = "0.8.7"
-    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+    reportsDirectory = file("${buildDir}/jacoco")
     applyTo run
 }
 
 jacocoTestReport {
+    group = "build"
     dependsOn test
     reports {
         xml.required = false
         csv.required = false
-        html.outputLocation = layout.buildDirectory.dir("${buildDir}/jacocoHtml")
+        html.destination file ("${buildDir}/jacocoHtml")
     }
 }
 
@@ -93,7 +91,7 @@ jacocoTestCoverageVerification {
             limit {
                 counter = "LINE"
                 value = "COVEREDRATIO"
-                minimum = 0.85
+                minimum = 0.0
             }
         }
     }
